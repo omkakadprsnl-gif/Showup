@@ -1,731 +1,274 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Showup | Stake Money. Build Habits.</title>
-  <meta
-    name="description"
-    content="Showup is a habit accountability app where you stake real money. Complete your challenge and get it back. Miss it and lose it. Launching July 2026."
-  />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
-  <style>
-    :root {
-      --bg: #07090f;
-      --bg-soft: #0f1424;
-      --card: rgba(14, 20, 36, 0.78);
-      --card-strong: #141c31;
-      --text: #f7f9ff;
-      --muted: #a6afc6;
-      --line: rgba(255, 255, 255, 0.12);
-      --danger: #ff4d67;
-      --neon: #25e2a8;
-      --gold: #ffca67;
-      --cyan: #4ec8ff;
-      --charity: #7ce8c0;
-      --shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
-      --radius-xl: 28px;
-      --radius-lg: 20px;
-      --radius-md: 14px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: "Sora", sans-serif;
-      background:
-        radial-gradient(70rem 45rem at 90% -8%, rgba(37, 226, 168, 0.16), transparent 58%),
-        radial-gradient(65rem 45rem at -20% 18%, rgba(78, 200, 255, 0.17), transparent 62%),
-        linear-gradient(180deg, #05070d 0%, #090f1f 46%, #07090f 100%);
-      color: var(--text);
-      min-height: 100vh;
-      line-height: 1.5;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .wrap {
-      width: min(1120px, 92vw);
-      margin: 0 auto;
-    }
-
-    .tagline,
-    h1,
-    h2,
-    h3 {
-      font-family: "Bebas Neue", sans-serif;
-      letter-spacing: 0.02em;
-      line-height: 0.98;
-      font-weight: 400;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 12;
-      backdrop-filter: blur(10px);
-      background: rgba(6, 9, 17, 0.82);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .nav {
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-    }
-
-    .logo {
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #31e7b0 0%, #1d86ff 100%);
-      box-shadow: 0 8px 24px rgba(49, 231, 176, 0.35);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .logo::before {
-      content: "";
-      position: absolute;
-      inset: 6px;
-      border: 2px solid rgba(255, 255, 255, 0.88);
-      border-radius: 7px;
-    }
-
-    .pills {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .pill {
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 7px 12px;
-      color: var(--muted);
-      font-size: 0.77rem;
-      background: rgba(255, 255, 255, 0.04);
-      white-space: nowrap;
-    }
-
-    .pill.hot {
-      background: rgba(255, 77, 103, 0.14);
-      color: #ffd6de;
-      border-color: rgba(255, 77, 103, 0.45);
-    }
-
-    .hero {
-      padding: 64px 0 38px;
-    }
-
-    .hero-grid {
-      display: grid;
-      gap: 24px;
-      align-items: stretch;
-    }
-
-    .tagline {
-      font-size: clamp(3.2rem, 10vw, 8.5rem);
-    }
-
-    .line-break {
-      display: block;
-    }
-
-    .gradient {
-      background: linear-gradient(90deg, #35e9b3 0%, #4ec8ff 45%, #ffca67 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .sub {
-      color: var(--muted);
-      margin-top: 16px;
-      max-width: 66ch;
-      font-size: 0.98rem;
-    }
-
-    .cta-row {
-      margin-top: 26px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      border: 0;
-      border-radius: 14px;
-      padding: 14px 18px;
-      font-family: inherit;
-      font-weight: 700;
-      font-size: 0.93rem;
-      cursor: pointer;
-      transition: transform 0.16s ease, filter 0.16s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.06);
-    }
-
-    .btn.primary {
-      color: #03130f;
-      background: linear-gradient(135deg, #37edb8 0%, #5ad0ff 100%);
-      box-shadow: 0 18px 40px rgba(37, 226, 168, 0.32);
-    }
-
-    .btn.ghost {
-      color: #dce6ff;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--line);
-    }
-
-    .hero-card {
-      border: 1px solid var(--line);
-      border-radius: var(--radius-xl);
-      background: linear-gradient(180deg, rgba(30, 44, 79, 0.72) 0%, rgba(10, 16, 30, 0.8) 100%);
-      padding: 20px;
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-card::after {
-      content: "";
-      position: absolute;
-      inset: auto -120px -120px auto;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255, 77, 103, 0.24), rgba(255, 77, 103, 0));
-      pointer-events: none;
-    }
-
-    .money-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 11px 12px;
-      background: rgba(255, 255, 255, 0.03);
-      margin-bottom: 10px;
-      font-size: 0.86rem;
-    }
-
-    .money-row b {
-      color: #fff;
-    }
-
-    .money-win {
-      color: var(--neon);
-      font-weight: 700;
-    }
-
-    .money-lose {
-      color: #ff96a6;
-      font-weight: 700;
-    }
-
-    .section {
-      padding: 28px 0;
-    }
-
-    .section h2 {
-      font-size: clamp(2rem, 6vw, 3.4rem);
-      margin-bottom: 8px;
-    }
-
-    .section .lead {
-      color: var(--muted);
-      max-width: 65ch;
-      margin-bottom: 18px;
-      font-size: 0.95rem;
-    }
-
-    .steps {
-      display: grid;
-      gap: 14px;
-    }
-
-    .step {
-      border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
-      background: var(--card);
-      padding: 18px;
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 12px;
-      align-items: start;
-    }
-
-    .num {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      color: #04140f;
-      background: linear-gradient(135deg, #37edb8 0%, #8de6ff 100%);
-      font-weight: 800;
-      font-size: 0.95rem;
-      box-shadow: 0 8px 20px rgba(65, 223, 189, 0.26);
-    }
-
-    .step h3 {
-      font-size: 1.7rem;
-      margin-bottom: 4px;
-    }
-
-    .step p {
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .modes {
-      display: grid;
-      gap: 14px;
-    }
-
-    .mode {
-      border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
-      background: var(--card);
-      padding: 18px;
-    }
-
-    .mode strong {
-      font-size: 1.16rem;
-    }
-
-    .mode p {
-      margin-top: 6px;
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .mode.solo strong {
-      color: var(--charity);
-    }
-
-    .mode.v1 strong {
-      color: var(--danger);
-    }
-
-    .feature-grid {
-      display: grid;
-      gap: 12px;
-    }
-
-    .feature {
-      border: 1px solid var(--line);
-      border-radius: var(--radius-md);
-      background: var(--card);
-      padding: 16px;
-    }
-
-    .feature h3 {
-      font-size: 1.45rem;
-      margin-bottom: 4px;
-    }
-
-    .feature p {
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    .feature .micro {
-      margin-top: 10px;
-      color: #d4dcf0;
-      font-size: 0.8rem;
-      border-top: 1px dashed rgba(255, 255, 255, 0.16);
-      padding-top: 10px;
-    }
-
-    .charities {
-      margin-top: 14px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius-md);
-      background: rgba(15, 25, 28, 0.56);
-      padding: 14px;
-    }
-
-    .charity-title {
-      font-size: 0.86rem;
-      color: #ddffe8;
-      margin-bottom: 9px;
-    }
-
-    .charity-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .charity-item {
-      border: 1px solid rgba(124, 232, 192, 0.3);
-      color: #dcfff0;
-      background: rgba(124, 232, 192, 0.12);
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 0.75rem;
-      white-space: nowrap;
-    }
-
-    .final-cta {
-      margin: 28px 0 54px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: var(--radius-xl);
-      background:
-        radial-gradient(42rem 24rem at 84% -6%, rgba(255, 77, 103, 0.18), transparent 62%),
-        linear-gradient(180deg, rgba(15, 23, 43, 0.9) 0%, rgba(9, 14, 26, 0.95) 100%);
-      padding: 22px;
-      box-shadow: var(--shadow);
-    }
-
-    .final-cta h2 {
-      font-size: clamp(2.2rem, 7vw, 4rem);
-      margin-bottom: 6px;
-    }
-
-    .urgency {
-      color: #ffd2da;
-      font-weight: 600;
-      font-size: 0.85rem;
-      margin-bottom: 14px;
-    }
-
-    form {
-      display: grid;
-      gap: 10px;
-    }
-
-    .input {
-      width: 100%;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 12px 13px;
-      background: rgba(255, 255, 255, 0.03);
-      color: #f9fbff;
-      font-family: inherit;
-      font-size: 0.9rem;
-    }
-
-    .input::placeholder {
-      color: #8793b0;
-    }
-
-    .cta-footnote {
-      color: var(--muted);
-      font-size: 0.77rem;
-    }
-
-    .inline {
-      display: grid;
-      gap: 10px;
-    }
-
-    .status {
-      min-height: 20px;
-      font-size: 0.86rem;
-      font-weight: 600;
-    }
-
-    .status.ok {
-      color: #83f3cd;
-    }
-
-    .status.err {
-      color: #ff98a8;
-    }
-
-    .foot {
-      border-top: 1px solid var(--line);
-      color: #8f9abc;
-      padding: 18px 0 34px;
-      font-size: 0.78rem;
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .reveal.on {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (min-width: 760px) {
-      .hero-grid {
-        grid-template-columns: 1.25fr 0.95fr;
-      }
-
-      .steps {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .step {
-        grid-template-columns: 1fr;
-      }
-
-      .modes {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .feature-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .inline {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Showup - Put Your Money Where Your Mouth Is</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#09090b;--card:#111113;--card2:#161618;--border:#1a1a1f;--border2:#252529;--accent:#00ff6a;--accent2:#33ff88;--white:#f5f5f5;--muted:#888;--dim:#555;--dimmer:#333;--red:#ff4d4d;--redBg:rgba(255,77,77,.08);--orange:#ff9f43;--orangeBg:rgba(255,159,67,.08)}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'Instrument Sans',sans-serif;overflow-x:hidden}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--dimmer);border-radius:2px}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes textShimmer{0%,100%{transform:translateX(-100%)}50%{transform:translateX(100%)}}
+@keyframes scrollAnim{0%,100%{transform:scaleY(1);opacity:.6}50%{transform:scaleY(.4);opacity:.2}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+@keyframes loadBar{from{width:0}to{width:100%}}
+.anim .rv{opacity:0;transform:translateY(50px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.anim .rv.on{opacity:1;transform:translateY(0)}
+
+nav{position:fixed;top:0;left:0;width:100%;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;z-index:1000;background:rgba(9,9,11,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo span{font-family:'JetBrains Mono',monospace;font-size:1.05rem;font-weight:700;color:var(--white)}
+.nav-logo span b{color:var(--accent)}
+.nbtn{padding:8px 20px;background:var(--accent);color:var(--bg);font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;border-radius:6px;cursor:pointer;letter-spacing:.5px;text-transform:uppercase;transition:all .3s;border:none}
+.nbtn:hover{background:var(--accent2)}
+
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 20px 100px;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,255,106,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,106,.015) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse at center,black 30%,transparent 70%);pointer-events:none}
+.hero-glow{position:absolute;width:700px;height:700px;border-radius:50%;background:var(--accent);filter:blur(220px);opacity:.035;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.htag{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px}
+.htag i{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:blink 2s infinite;font-style:normal}
+.hero h1{font-size:clamp(2.8rem,7.5vw,6rem);font-weight:700;line-height:.92;letter-spacing:-3px;max-width:800px;margin-top:28px}
+.hero h1 em{font-style:normal;color:var(--accent);position:relative;overflow:hidden}
+.hero h1 em::after{content:'';position:absolute;top:0;left:-10%;width:120%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,255,106,.15),transparent);animation:textShimmer 4s ease-in-out infinite;pointer-events:none}
+.hsub{font-size:clamp(.95rem,1.8vw,1.15rem);color:var(--muted);margin-top:24px;max-width:480px;line-height:1.65}
+.hcta{display:inline-flex;align-items:center;gap:8px;margin-top:36px;padding:14px 32px;background:var(--accent);color:var(--bg);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.85rem;border:none;border-radius:8px;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;transition:all .3s}
+.hcta:hover{background:var(--accent2)}
+.scue{position:absolute;bottom:32px;left:50%;transform:translateX(-50%)}
+.scue div{width:1px;height:32px;background:linear-gradient(var(--accent),transparent);animation:scrollAnim 2s ease-in-out infinite}
+
+.mwrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 0;overflow:hidden}
+.mtrack{display:flex;white-space:nowrap;animation:marquee 22s linear infinite}
+.mtrack span{font-family:'JetBrains Mono',monospace;font-size:clamp(1rem,2.5vw,1.4rem);font-weight:600;text-transform:uppercase;letter-spacing:4px;padding:0 40px;color:var(--dimmer)}
+.mtrack span b{color:var(--accent)}
+
+.sec{padding:100px 40px;max-width:1000px;margin:0 auto}
+.sl{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:4px;margin-bottom:14px}
+.st{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;letter-spacing:-1.5px;line-height:1.1;margin-bottom:16px;color:var(--white)}
+.la{width:60px;height:2px;background:var(--accent);border-radius:1px;margin-bottom:20px;opacity:.6}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.stp{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:32px 24px;transition:all .4s;position:relative;overflow:hidden}
+.stp::after{content:'';position:absolute;top:0;left:0;width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .4s}
+.stp:hover{border-color:rgba(0,255,106,.3);transform:translateY(-4px)}
+.stp:hover::after{opacity:1}
+.sn{font-family:'JetBrains Mono',monospace;font-size:2.5rem;font-weight:700;color:var(--border);line-height:1;margin-bottom:16px}
+.stp h3{font-size:1.1rem;font-weight:600;margin-bottom:8px;color:var(--white)}
+.stp p{font-size:.88rem;color:var(--muted);line-height:1.6}
+
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px}
+.md{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:36px 28px;position:relative;overflow:hidden}
+.md::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px}
+.md.solo::before{background:var(--accent)}
+.md.vs::before{background:var(--orange)}
+.md h3{font-size:1.4rem;font-weight:700;margin-bottom:8px;color:var(--white)}
+.md p{color:var(--muted);line-height:1.7;font-size:.92rem}
+.mt{font-family:'JetBrains Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:3px;margin-bottom:14px}
+.mt.g{color:var(--accent)}.mt.o{color:var(--orange)}
+.mc{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.mch{padding:4px 12px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:.68rem;background:rgba(0,255,106,.06);color:var(--accent);border:1px solid rgba(0,255,106,.1)}
+.mch.o{background:rgba(255,159,67,.06);color:var(--orange);border-color:rgba(255,159,67,.1)}
+
+#csec{padding:80px 20px 120px;max-width:640px;margin:0 auto}
+.ch{text-align:center;margin-bottom:48px}
+.fp{display:flex;gap:6px;margin-bottom:24px}
+.fs{flex:1;height:4px;border-radius:99px;background:var(--border);transition:background .3s}
+.fs.a{background:var(--accent)}
+.fsl{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--dim);margin-bottom:24px}
+.ft{font-size:1.6rem;font-weight:700;letter-spacing:-1px;margin-bottom:6px;color:var(--white)}
+.fsu{font-size:.9rem;color:var(--muted);margin-bottom:24px;line-height:1.6}
+
+.fc{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:20px;cursor:pointer;transition:border-color .15s,background .15s;text-align:left;width:100%;display:block}
+.fc:hover{border-color:var(--border2)}
+.fc.sel{border-color:var(--accent);background:rgba(0,255,106,.04)}
+.fc.selo{border-color:var(--orange);background:rgba(255,159,67,.04)}
+.fc h4{font-size:1.05rem;font-weight:700;margin-bottom:4px;color:var(--white)}
+.fc p{font-size:.82rem;color:var(--muted);line-height:1.55}
+
+.fi{width:100%;padding:14px 16px;background:var(--card);border:1.5px solid var(--border);border-radius:10px;color:var(--white);font-size:.95rem;font-weight:600;transition:border-color .3s;outline:none;font-family:inherit}
+.fi:focus{border-color:var(--accent)}
+.fi::placeholder{color:var(--dim)}
+
+.tc{padding:8px 14px;background:var(--card);border:1.5px solid var(--border);border-radius:10px;color:var(--white);font-size:.82rem;font-weight:600;cursor:pointer;transition:border-color .15s,background .15s,color .15s}
+.tc.on{background:rgba(0,255,106,.06);border-color:var(--accent);color:var(--accent)}
+.db{flex:1;padding:11px 0;background:var(--card);border:1.5px solid var(--border);border-radius:10px;color:var(--muted);font-weight:800;font-size:.82rem;cursor:pointer;text-align:center;transition:background .15s,border-color .15s,color .15s}
+.db.on{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+
+.sd2{background:var(--card);border:2px solid var(--accent);border-radius:16px;padding:24px;text-align:center;margin-bottom:20px}
+.sb{font-family:'JetBrains Mono',monospace;font-size:3rem;font-weight:700;color:var(--white);letter-spacing:-2px}
+.sc2{position:relative;flex:1 1 55px;min-width:55px;padding:10px 0;background:var(--card);border:1.5px solid var(--border);border-radius:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.78rem;cursor:pointer;text-align:center;transition:border-color .15s,background .15s,color .15s}
+.sc2.on{background:rgba(0,255,106,.08);border-color:var(--accent);color:var(--accent)}
+.sc2.rec{border-color:rgba(0,255,106,.3);color:var(--accent)}
+.tb{position:absolute;top:-7px;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--bg);font-size:.5rem;font-weight:800;padding:1px 6px;border-radius:99px;white-space:nowrap}
+
+.cc{display:flex;align-items:center;gap:14px;background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;cursor:pointer;transition:border-color .15s,background .15s;width:100%}
+.cc:hover{border-color:var(--dim)}
+.cc.on{border-color:var(--accent);background:rgba(0,255,106,.04)}
+.ci{width:40px;height:40px;border-radius:10px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.cr{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;transition:border-color .15s,background .15s}
+.cc.on .cr{border-color:var(--accent);background:var(--accent)}
+
+.ib{border-radius:10px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;font-size:.78rem;line-height:1.6;font-weight:600}
+.ib.w{background:var(--redBg);color:var(--red);border:1px solid rgba(255,77,77,.12)}
+.ib.t{background:rgba(0,255,106,.05);color:var(--accent);border:1px solid rgba(0,255,106,.1)}
+
+.fb{width:100%;padding:15px;background:var(--accent);color:var(--bg);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.85rem;border:none;border-radius:10px;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;transition:all .3s;margin-top:20px}
+.fb:hover:not(:disabled){background:var(--accent2)}
+.fb:disabled{opacity:.3;cursor:not-allowed}
+.fback{background:none;border:1px solid var(--border);color:var(--muted);font-family:'JetBrains Mono',monospace;font-weight:600;font-size:.78rem;padding:10px;border-radius:8px;cursor:pointer;margin-top:10px;width:100%;text-align:center;transition:all .3s}
+.fback:hover{border-color:var(--dim);color:var(--white)}
+
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:2000}
+.oc{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:40px 32px;text-align:center;max-width:420px;width:90%;animation:popIn .4s cubic-bezier(.34,1.56,.64,1)}
+
+footer{padding:32px;text-align:center;border-top:1px solid var(--border)}
+footer p{font-size:.8rem;color:var(--dimmer)}
+footer a{color:var(--muted);text-decoration:none}
+
+@media(max-width:768px){
+  .steps{grid-template-columns:1fr}
+  .mg{grid-template-columns:1fr}
+  .sec{padding:80px 20px}
+  nav{padding:14px 16px}
+}
+</style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="wrap nav">
-      <a href="#" class="brand" aria-label="Showup home">
-        <span class="logo" aria-hidden="true"></span>
-        <span>Showup</span>
-      </a>
-      <div class="pills">
-        <span class="pill">Global launch: July 2026</span>
-        <span class="pill">USD only</span>
-        <span class="pill hot">Ages 16-32</span>
-      </div>
-    </div>
-  </header>
 
-  <main class="wrap">
-    <section class="hero reveal">
-      <div class="hero-grid">
-        <div>
-          <h1 class="tagline">
-            <span class="line-break">The app that makes</span>
-            <span class="line-break gradient">quitting expensive.</span>
-          </h1>
-          <p class="sub">
-            Showup is habit accountability with real consequences. Pick a habit, stake money, and check in daily.
-            Complete your challenge and get your money back. Miss it and lose it.
-          </p>
-          <div class="cta-row">
-            <a href="#waitlist" class="btn primary">Join the Waitlist</a>
-            <a href="#how" class="btn ghost">See How It Works</a>
-          </div>
-        </div>
+<nav>
+  <a class="nav-logo" href="#"><svg width="30" height="30" viewBox="0 0 100 100" fill="none"><rect width="100" height="100" rx="24" fill="#00ff6a"/><path d="M22 84 L22 46 Q22 16 50 16 Q78 16 78 46 L78 84" stroke="white" stroke-width="6" fill="none" stroke-linecap="round"/><line x1="12" y1="84" x2="88" y2="84" stroke="white" stroke-width="5" stroke-linecap="round"/><circle cx="50" cy="36" r="6" fill="white"/><line x1="50" y1="42" x2="50" y2="63" stroke="white" stroke-width="4" stroke-linecap="round"/><path d="M40 53 L50 49 L60 53" stroke="white" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M44 84 L50 63 L56 84" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>SHOW<b>UP</b></span></a>
+  <button class="nbtn" onclick="goToChallenge()">Try It Now</button>
+</nav>
 
-        <aside class="hero-card" aria-label="Showup stake preview">
-          <div class="money-row">
-            <span>Stake Range</span>
-            <b>$5 - $1,000</b>
-          </div>
-          <div class="money-row">
-            <span>Check-in Methods</span>
-            <b>AI Selfie, Session Lock, Activity, Tap</b>
-          </div>
-          <div class="money-row">
-            <span>If You Complete</span>
-            <span class="money-win">Full stake returned</span>
-          </div>
-          <div class="money-row">
-            <span>If You Miss</span>
-            <span class="money-lose">Money gone</span>
-          </div>
-          <div class="money-row">
-            <span>Modes</span>
-            <b>Solo or 1v1</b>
-          </div>
-          <div class="money-row">
-            <span>Social Pressure</span>
-            <b>The Wall + Leaderboard</b>
-          </div>
-        </aside>
-      </div>
-    </section>
+<section class="hero"><div class="hero-grid"></div><div class="hero-glow"></div>
+  <h1>Put Your <em>Money</em> Where Your Mouth Is</h1>
+  <p class="hsub">The accountability app that makes quitting expensive. Set a goal, stake your cash, show up or lose it.</p>
+  <button onclick="goToChallenge()" class="hcta">Create Your Challenge &#8595;</button>
+  <div class="scue"><div></div></div>
+</section>
 
-    <section id="how" class="section reveal">
-      <h2>How It Works</h2>
-      <p class="lead">Three steps. No loopholes. No fake points.</p>
-      <div class="steps">
-        <article class="step">
-          <span class="num">1</span>
-          <div>
-            <h3>Set Habit + Stake</h3>
-            <p>Choose your habit and lock in from $5 to $1,000 in USD.</p>
-          </div>
-        </article>
-        <article class="step">
-          <span class="num">2</span>
-          <div>
-            <h3>Check In Daily</h3>
-            <p>Verify with AI Selfie, Session Lock, Phone Activity Tracking, or one-tap check-in.</p>
-          </div>
-        </article>
-        <article class="step">
-          <span class="num">3</span>
-          <div>
-            <h3>Win or Lose</h3>
-            <p>Complete your challenge and get your money back. Miss your target and your stake is gone.</p>
-          </div>
-        </article>
-      </div>
-    </section>
+<div class="mwrap"><div class="mtrack"><span>Show Up <b>or Pay Up</b></span><span>Stake Real Money</span><span>Build Real Habits</span><span>No More Excuses</span><span>Show Up <b>or Pay Up</b></span><span>Stake Real Money</span><span>Build Real Habits</span><span>No More Excuses</span></div></div>
 
-    <section class="section reveal">
-      <h2>Choose Your Mode</h2>
-      <p class="lead">Play it personal or go head-to-head.</p>
-      <div class="modes">
-        <article class="mode solo">
-          <strong>Solo: You vs Yourself</strong>
-          <p>Miss your habit and your forfeited stake goes to charity. Accountability with impact.</p>
-        </article>
-        <article class="mode v1">
-          <strong>1v1: Challenge a Friend</strong>
-          <p>Both of you stake real money. Miss your habit and your opponent takes your money. Real competition, real stakes.</p>
-        </article>
-      </div>
-    </section>
+<div class="sec"><div class="rv"><div class="la"></div><div class="sl">How It Works</div><div class="st">Three steps. Zero excuses.</div></div>
+  <div class="steps"><div class="stp rv"><div class="sn">01</div><h3>Set a goal</h3><p>Pick a habit, set the duration, and choose a stake between $5 and $1,000.</p></div><div class="stp rv"><div class="sn">02</div><h3>Show up daily</h3><p>Check in every day. AI verification keeps it honest.</p></div><div class="stp rv"><div class="sn">03</div><h3>Win or lose</h3><p>Complete the challenge, keep your money. Miss too many days and it goes to charity.</p></div></div>
+</div>
 
-    <section class="section reveal">
-      <h2>Built to Keep You Honest</h2>
-      <p class="lead">Everything is designed to remove excuses and reward consistency.</p>
-      <div class="feature-grid">
-        <article class="feature">
-          <h3>Real Money Stakes</h3>
-          <p>No points. No pretend streaks. You feel every decision financially.</p>
-          <p class="micro">Commitment amount: $5-$1,000 per challenge.</p>
-        </article>
-        <article class="feature">
-          <h3>The Wall</h3>
-          <p>A live feed of wins and losses. People see who showed up and who folded.</p>
-          <p class="micro">Public accountability creates daily pressure.</p>
-        </article>
-        <article class="feature">
-          <h3>Leaderboard</h3>
-          <p>Track the most consistent users globally and compare your streak discipline.</p>
-          <p class="micro">Consistency beats motivation.</p>
-        </article>
-        <article class="feature">
-          <h3>Smart Verification</h3>
-          <p>AI-powered check-ins stop cheating and keep outcomes fair in Solo and 1v1 mode.</p>
-          <p class="micro">AI Selfie, Session Lock, Activity Tracking, and Tap checks.</p>
-        </article>
-      </div>
+<div class="sec"><div class="rv"><div class="la"></div><div class="sl">Game Modes</div><div class="st">Pick your fight.</div></div>
+  <div class="mg"><div class="md solo rv"><div class="mt g">Solo</div><h3>You vs. yourself</h3><p>Stake money on your own goals. Miss and your stake splits.</p><div class="mc"><div class="mch">50% Charity</div><div class="mch">50% Platform</div></div></div><div class="md vs rv"><div class="mt o">1v1</div><h3>You vs. a friend</h3><p>Both stake money. Whoever misses more forfeits.</p><div class="mc"><div class="mch o">50% Winner</div><div class="mch o">25% Charity</div><div class="mch o">25% Platform</div></div></div></div>
+</div>
 
-      <div class="charities">
-        <p class="charity-title">Every forfeited stake partially supports charity partners:</p>
-        <div class="charity-list">
-          <span class="charity-item">Nanhi Kali</span>
-          <span class="charity-item">CRY India</span>
-          <span class="charity-item">Teach For India</span>
-          <span class="charity-item">Give India</span>
-          <span class="charity-item">HelpAge India</span>
-          <span class="charity-item">WWF India</span>
-        </div>
-      </div>
-    </section>
+<div id="csec"><div class="ch rv"><div class="la" style="margin:0 auto 20px"></div><div class="sl">Try It</div><div class="st" style="text-align:center">Create your challenge.</div><p style="color:var(--muted);font-size:.95rem;margin-top:8px;text-align:center">Go through the full flow. See how much you would actually stake.</p></div><div id="fc"></div></div>
 
-    <section id="waitlist" class="final-cta reveal">
-      <h2>Launch Is Close. Lock Your Spot.</h2>
-      <p class="urgency">Waitlist opens now. First access rolls out July 2026.</p>
+<footer><p style="margin-bottom:6px"><strong style="color:var(--white)">SHOW<span style="color:var(--accent)">UP</span></strong></p><p>&#169; 2026 Showup &#183; <a href="/cdn-cgi/l/email-protection#6d0e0203190c0e19430200060c060c092d0a000c0401430e0200">Contact</a></p></footer>
+<div id="ovc"></div>
 
-      <form id="waitlist-form" novalidate>
-        <div class="inline">
-          <input class="input" id="name" name="name" type="text" placeholder="Your name" required />
-          <input class="input" id="email" name="email" type="email" placeholder="Email address" required />
-        </div>
-        <div class="inline">
-          <input class="input" id="habit" name="habit" type="text" placeholder="Habit you want to lock in" />
-          <select class="input" id="stake" name="stake" required>
-            <option value="">Planned stake (USD)</option>
-            <option>$5 - $25</option>
-            <option>$26 - $100</option>
-            <option>$101 - $500</option>
-            <option>$501 - $1,000</option>
-          </select>
-        </div>
-        <button class="btn primary" type="submit">Join the Waitlist</button>
-        <p class="status" id="status-msg" aria-live="polite"></p>
-        <p class="cta-footnote">By joining, you agree to receive launch updates for Showup (global release in USD).</p>
-      </form>
-    </section>
-  </main>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+var SHEET="https://script.google.com/macros/s/AKfycbxbtPK0sAJ-ZOJwwmBJ9qXo4Iv3WkWA_d5YSJWxfsT5m-UdOlTQNVOakOQkFpOlFPDj/exec";
+var stepNames=["mode","habit","stake","charity"];
+var SID=Math.random().toString(36).slice(2,10)+Date.now().toString(36);
+function sendStep(completed){
+  var cn="";for(var i=0;i<chars.length;i++)if(chars[i].id===S.charity)cn=chars[i].n;
+  var dev=/Mobi|Android/i.test(navigator.userAgent)?"Mobile":"Desktop";
+  var q="?session="+SID+"&step="+stepNames[S.step]+"&device="+dev+"&completed="+(completed?"yes":"no");
+  q+="&mode="+encodeURIComponent(S.mode||"");
+  q+="&habit="+encodeURIComponent(S.habit||"");
+  q+="&duration="+encodeURIComponent(S.days>0||S.cd?ed()+" days":"");
+  q+="&stake="+encodeURIComponent(es()>0?"$"+es():"");
+  q+="&charity="+encodeURIComponent(cn||"");
+  try{var img=new Image();img.src=SHEET+q;}catch(e){}
+}
+function goToChallenge(){var el=document.getElementById("csec");if(el){var y=el.getBoundingClientRect().top+window.pageYOffset-80;window.scrollTo({top:y,behavior:"smooth"});}}
+var S={step:0,mode:"",habit:"",days:0,cd:"",ucd:false,stake:0,cs:"",ucs:false,charity:""};
+var tmpls=["Morning Run","Read 20 Pages","No Social Media","Meditate","Workout","Wake Up at 6AM","Walk 5000 Steps","Study Session","Deep Work","No Phone After 10PM","Journaling","Healthy Eating"];
+var sAmts=[5,10,15,20,30,40,50,60,70,80,90,100,200,300,400,500,1000];
+var chars=[{id:"wc",n:"Water.org",c:"Clean water access worldwide",i:"\uD83D\uDCA7"},{id:"dwb",n:"Doctors Without Borders",c:"Emergency medical care globally",i:"\uD83C\uDFE5"},{id:"wwf",n:"WWF",c:"Wildlife & environment",i:"\uD83D\uDC2F"},{id:"uni",n:"UNICEF",c:"Children's rights & welfare",i:"\uD83E\uDDD2"},{id:"kk",n:"Khan Academy",c:"Free education for everyone",i:"\uD83D\uDCDA"},{id:"tfi",n:"Teach For All",c:"Quality education globally",i:"\uD83D\uDCD6"},{id:"red",n:"Red Cross",c:"Disaster relief & humanitarian aid",i:"\u2764\uFE0F"},{id:"gp",n:"Greenpeace",c:"Environmental protection",i:"\uD83C\uDF0D"}];
 
-  <footer class="wrap foot">
-    <span>Showup (c) 2026</span>
-    <span>Stake money. Build habits. No excuses.</span>
-  </footer>
+function ed(){return S.ucd&&S.cd?parseInt(S.cd):S.days}
+function es(){return S.ucs&&S.cs?parseFloat(S.cs):S.stake}
+function ml(){return Math.ceil(ed()/3)}
+function tc(){return 3}
+function door(){return '<svg width="60" height="60" viewBox="0 0 100 100" fill="none" style="border-radius:14px"><rect width="100" height="100" rx="24" fill="#00ff6a"/><path d="M22 84 L22 46 Q22 16 50 16 Q78 16 78 46 L78 84" stroke="white" stroke-width="6" fill="none" stroke-linecap="round"/><line x1="12" y1="84" x2="88" y2="84" stroke="white" stroke-width="5" stroke-linecap="round"/><circle cx="50" cy="36" r="6" fill="white"/><line x1="50" y1="42" x2="50" y2="63" stroke="white" stroke-width="4" stroke-linecap="round"/><path d="M40 53 L50 49 L60 53" stroke="white" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M44 84 L50 63 L56 84" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>'}
 
-  <script>
-    const form = document.getElementById("waitlist-form");
-    const statusMsg = document.getElementById("status-msg");
-    const reveals = document.querySelectorAll(".reveal");
+function ubtn(){
+  var b=document.getElementById("fnb");if(!b)return;
+  var d=false;
+  if(S.step===0)d=!S.mode;
+  else if(S.step===1)d=!S.habit.trim()||(S.ucd&&!S.cd)||(!S.ucd&&S.days===0);
+  else if(S.step===2)d=(S.ucs&&!S.cs)||(!S.ucs&&S.stake===0);
+  else if(S.step===3)d=!S.charity;
+  b.disabled=d;
+  b.textContent="Continue";
+}
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("on");
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
+/* RENDER - only called on step changes */
+function render(){
+  var c=document.getElementById("fc"),t=tc(),s=S.step;
+  var prog='<div class="fp">';for(var i=0;i<=t;i++)prog+='<div class="fs'+(i<=s?' a':'')+'"></div>';
+  prog+='</div><div class="fsl">Step '+(s+1)+' of '+(t+1)+'</div>';
+  var h="";
+  if(s===0)h=s0();else if(s===1)h=s1();else if(s===2)h=s2();else if(s===3)h=s3();
+  var back=s>0?'<button class="fback" onclick="goBack()">Back</button>':"";
+  c.innerHTML=prog+'<div style="animation:fadeUp .3s ease">'+h+'</div><button class="fb" id="fnb" onclick="goNext()">Continue</button>'+back;
+  ubtn();
+}
 
-    reveals.forEach((el) => io.observe(el));
+/* STEP 0 - MODE */
+function s0(){
+  return '<div class="ft">How do you want to play?</div><div class="fsu">Choose your challenge mode.</div><div style="display:flex;flex-direction:column;gap:12px"><button class="fc'+(S.mode==="Solo"?" sel":"")+'" id="mSolo" onclick="pickMode(\'Solo\')"><h4>\uD83C\uDF31 Solo Mode</h4><p>Just you vs. your habits. Complete all days to get your stake back. Miss days and your money goes to charity.</p></button><button class="fc'+(S.mode==="1v1"?" selo":"")+'" id="m1v1" onclick="pickMode(\'1v1\')"><h4>\u26A1 1v1 a Friend</h4><p>Both stake equal amounts. Whoever misses more days loses. 50% to winner, 25% to charity, 25% to platform.</p></button></div>';
+}
+function pickMode(m){S.mode=m;document.getElementById("mSolo").className="fc"+(m==="Solo"?" sel":"");document.getElementById("m1v1").className="fc"+(m==="1v1"?" selo":"");ubtn()}
 
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const stake = document.getElementById("stake").value.trim();
-      const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+/* STEP 1 - HABIT + DURATION */
+function s1(){
+  var chips="";for(var i=0;i<tmpls.length;i++){var t=tmpls[i];chips+='<button class="tc'+(S.habit===t?' on':'')+'" data-i="'+i+'" onclick="pickTmpl('+i+')">'+t+'</button>';}
+  var durs=[7,10,14,21,30],db="";for(var i=0;i<durs.length;i++){db+='<button class="db'+(!S.ucd&&S.days===durs[i]?' on':'')+'" data-d="'+durs[i]+'" onclick="pickDur('+durs[i]+')">'+durs[i]+'d</button>';}
+  return '<div class="ft">What is the habit?</div><div class="fsu">Be specific. Vague goals fail.</div><input class="fi" id="fih" value="'+S.habit.replace(/"/g,'&quot;')+'" oninput="S.habit=this.value;ubtn()" placeholder="e.g. Read 30 minutes every morning" style="margin-bottom:16px"><div style="font-family:JetBrains Mono;font-size:.65rem;color:var(--dim);letter-spacing:2px;margin-bottom:8px;text-transform:uppercase">Or pick a template</div><div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px" id="tchips">'+chips+'</div><div style="font-weight:700;font-size:.9rem;margin-bottom:10px">Duration</div><div style="display:flex;gap:8px;margin-bottom:10px" id="dbtns">'+db+'</div><div style="display:flex;align-items:center;gap:8px;background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;margin-bottom:12px"><span style="font-weight:700;font-size:.8rem;color:var(--dim)">Custom</span><input id="ficd" value="'+S.cd+'" oninput="S.cd=this.value.replace(/\\D/g,\'\').slice(0,3);S.ucd=true;updMiss();ubtn()" onfocus="S.ucd=true;var b=document.querySelectorAll(\'#dbtns .db\');for(var j=0;j<b.length;j++)b[j].className=\'db\';updMiss()" placeholder="e.g. 45" type="tel" style="flex:1;background:none;border:none;font-weight:800;font-size:.9rem;color:var(--white);outline:none"><span style="font-size:.8rem;color:var(--dim)">days</span></div><div class="ib w" id="missinfo" style="'+(ed()>0?'':'display:none;')+'">\uD83D\uDC80 Miss <b>'+ml()+' days in a row</b> on a '+ed()+'-day challenge and you lose your entire stake.</div>';
+}
+function pickTmpl(i){S.habit=tmpls[i];document.getElementById("fih").value=S.habit;var b=document.querySelectorAll("#tchips .tc");for(var j=0;j<b.length;j++)b[j].className="tc"+(j===i?" on":"");ubtn()}
+function pickDur(d){S.days=d;S.ucd=false;S.cd="";document.getElementById("ficd").value="";var b=document.querySelectorAll("#dbtns .db");for(var j=0;j<b.length;j++){var v=parseInt(b[j].getAttribute("data-d"));b[j].className="db"+(v===d?" on":"");}updMiss();ubtn()}
+function updMiss(){var el=document.getElementById("missinfo");if(!el)return;var d=ed();if(d>0){el.style.display="flex";el.innerHTML='\uD83D\uDC80 Miss <b>'+ml()+' days in a row</b> on a '+d+'-day challenge and you lose your entire stake.';}else{el.style.display="none";}}
 
-      statusMsg.className = "status";
-      if (!name || !emailValid || !stake) {
-        statusMsg.textContent = "Enter your name, valid email, and stake range to join.";
-        statusMsg.classList.add("err");
-        return;
-      }
+/* STEP 2 - STAKE */
+function s2(){
+  var v=es(),d=ed(),pd=d>0?(v/d).toFixed(2):"0",m=ml();
+  var chips="";for(var i=0;i<sAmts.length;i++){var a=sAmts[i],on=!S.ucs&&S.stake===a,rec=a===30;chips+='<button class="sc2'+(on?" on":"")+(rec&&!on?" rec":"")+'" data-s="'+a+'" onclick="pickStk('+a+')">'+(rec?'<div class="tb">\u2B50 TOP</div>':'')+'$'+a+'</button>';}
+  return '<div class="ft">Put money on it.</div><div class="fsu">The higher the stake, the stronger the commitment.</div><div class="sd2"><div class="sb" id="sv">'+(S.ucs?(S.cs?'$'+S.cs:'$\u2014'):(S.stake>0?'$'+S.stake:'$\u2014'))+'</div><div style="font-size:.82rem;color:var(--dim);margin-top:4px" id="sddays">'+(d>0?'staked for '+d+' days':'select a stake amount')+'</div><div id="sbreakdown" style="'+(v>0&&d>0?'':'display:none;')+'display:flex;gap:6px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);justify-content:center;flex-wrap:wrap"><div style="text-align:center;padding:0 16px"><div style="font-family:JetBrains Mono;font-size:.95rem;font-weight:700;color:var(--red)" id="spd">$'+pd+'</div><div style="font-size:.68rem;color:var(--dim);margin-top:2px">lost per missed day</div></div><div style="width:1px;background:var(--border)"></div><div style="text-align:center;padding:0 16px"><div style="font-family:JetBrains Mono;font-size:.95rem;font-weight:700;color:var(--red)" id="stot">$'+v+'</div><div style="font-size:.68rem;color:var(--dim);margin-top:2px">lost if <span id="sml">'+m+'</span> missed in a row</div></div></div></div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px" id="schips">'+chips+'</div><div style="font-family:JetBrains Mono;font-size:.65rem;color:var(--dim);letter-spacing:1.5px;margin-bottom:6px;text-transform:uppercase">Custom Amount</div><div style="display:flex;align-items:center;gap:8px;background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:12px 16px" id="csbox"><span style="font-family:JetBrains Mono;font-weight:700;font-size:1.2rem;color:var(--dim)">$</span><input id="fics" value="'+S.cs+'" oninput="S.cs=this.value.replace(/\\D/g,\'\');S.ucs=true;updStk()" onfocus="S.ucs=true;updStkFocus()" placeholder="Enter any amount" type="tel" style="flex:1;background:none;border:none;font-weight:800;font-size:1rem;color:var(--white);outline:none"></div>';
+}
+function pickStk(a){S.stake=a;S.ucs=false;S.cs="";document.getElementById("fics").value="";var b=document.querySelectorAll("#schips .sc2");for(var j=0;j<b.length;j++){var v=parseInt(b[j].getAttribute("data-s")),rec=v===30;b[j].className="sc2"+(v===a?" on":"")+(rec&&v!==a?" rec":"");}document.getElementById("csbox").style.borderColor="var(--border)";updStkD();ubtn()}
+function updStkFocus(){var b=document.querySelectorAll("#schips .sc2");for(var j=0;j<b.length;j++){var v=parseInt(b[j].getAttribute("data-s")),rec=v===30;b[j].className="sc2"+(rec?" rec":"");}document.getElementById("csbox").style.borderColor="var(--accent)";updStkD()}
+function updStk(){document.getElementById("csbox").style.borderColor="var(--accent)";updStkD();ubtn()}
+function updStkD(){var v=es(),d=ed(),pd=d>0?(v/d).toFixed(2):"0",m=ml();var e=document.getElementById("sv");if(e)e.textContent=S.ucs?(S.cs?"$"+S.cs:"$\u2014"):(S.stake>0?"$"+S.stake:"$\u2014");e=document.getElementById("sddays");if(e)e.textContent=d>0?"staked for "+d+" days":"select a stake amount";e=document.getElementById("sbreakdown");if(e)e.style.display=(v>0&&d>0)?"flex":"none";e=document.getElementById("spd");if(e)e.textContent="$"+pd;e=document.getElementById("stot");if(e)e.textContent="$"+v;e=document.getElementById("sml");if(e)e.textContent=m}
 
-      statusMsg.textContent = "You're on the waitlist. We'll send launch access updates soon.";
-      statusMsg.classList.add("ok");
-      form.reset();
-    });
-  </script>
+/* STEP 3 - CHARITY */
+function s3(){
+  var cards="";for(var i=0;i<chars.length;i++){var ch=chars[i],on=S.charity===ch.id;cards+='<button class="cc'+(on?" on":"")+'" data-c="'+ch.id+'" onclick="pickCh(\''+ch.id+'\')"><div class="ci">'+ch.i+'</div><div style="flex:1;text-align:left"><div class="chn" style="font-weight:700;font-size:.88rem;color:'+(on?'var(--accent)':'var(--white)')+'">'+ch.n+'</div><div style="font-size:.75rem;color:var(--muted);margin-top:2px">'+ch.c+'</div></div><div class="cr"></div></button>';}
+  var desc=S.mode==="Solo"?"50% of any forfeited stake goes to your chosen charity.":"If you lose, 25% goes to your chosen charity.";
+  return '<div class="ft">Where should your forfeits go?</div><div class="fsu">'+desc+'</div><div style="display:flex;flex-direction:column;gap:10px" id="clist">'+cards+'</div>';
+}
+function pickCh(id){S.charity=id;var b=document.querySelectorAll("#clist .cc");for(var j=0;j<b.length;j++){var cid=b[j].getAttribute("data-c"),on=cid===id;b[j].className="cc"+(on?" on":"");b[j].querySelector(".chn").style.color=on?"var(--accent)":"var(--white)"}ubtn()}
+
+/* NAVIGATION */
+function goBack(){S.step--;render();document.getElementById("csec").scrollIntoView({behavior:"smooth"})}
+function goNext(){if(S.step<tc()){sendStep(false);S.step++;render();document.getElementById("csec").scrollIntoView({behavior:"smooth"})}else lockIn()}
+
+function lockIn(){
+  var ov=document.getElementById("ovc");
+  ov.innerHTML='<div class="ov"><div class="oc">'+door()+'<div style="font-size:1.3rem;font-weight:700;margin-top:20px">Locking in your challenge...</div><div style="margin-top:16px;height:5px;background:var(--border);border-radius:99px;overflow:hidden;width:100%"><div style="height:100%;background:var(--accent);border-radius:99px;animation:loadBar 2s ease forwards"></div></div></div></div>';
+  sendStep(true);
+  setTimeout(function(){ov.innerHTML='<div class="ov"><div class="oc">'+door()+'<div style="font-size:1.5rem;font-weight:700;margin-top:20px;color:var(--accent)">Coming Soon!</div><div style="font-size:.9rem;color:var(--muted);margin-top:12px;line-height:1.6">Showup is launching soon. We saved your challenge preferences and will notify you when we go live.</div><button onclick="location.reload()" style="margin-top:24px;width:100%;padding:14px;background:var(--accent);color:var(--bg);font-family:JetBrains Mono,monospace;font-weight:700;font-size:.85rem;border:none;border-radius:10px;cursor:pointer;text-transform:uppercase">Got it</button></div></div>'},2200);
+}
+
+document.body.classList.add("anim");
+var io=new IntersectionObserver(function(e){for(var i=0;i<e.length;i++)if(e[i].isIntersecting){e[i].target.classList.add("on");io.unobserve(e[i].target)}},{threshold:.1,rootMargin:"0px 0px -40px 0px"});
+var rvs=document.querySelectorAll(".rv");for(var i=0;i<rvs.length;i++)io.observe(rvs[i]);
+render();
+</script>
 </body>
 </html>
