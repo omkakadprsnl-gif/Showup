@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Showup | Stake Money. Build Habits.</title>
+  <meta
+    name="description"
+    content="Showup is a habit accountability app where you stake real money. Complete your challenge and get it back. Miss it and lose it. Launching July 2026."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #07090f;
+      --bg-soft: #0f1424;
+      --card: rgba(14, 20, 36, 0.78);
+      --card-strong: #141c31;
+      --text: #f7f9ff;
+      --muted: #a6afc6;
+      --line: rgba(255, 255, 255, 0.12);
+      --danger: #ff4d67;
+      --neon: #25e2a8;
+      --gold: #ffca67;
+      --cyan: #4ec8ff;
+      --charity: #7ce8c0;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Sora", sans-serif;
+      background:
+        radial-gradient(70rem 45rem at 90% -8%, rgba(37, 226, 168, 0.16), transparent 58%),
+        radial-gradient(65rem 45rem at -20% 18%, rgba(78, 200, 255, 0.17), transparent 62%),
+        linear-gradient(180deg, #05070d 0%, #090f1f 46%, #07090f 100%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .wrap {
+      width: min(1120px, 92vw);
+      margin: 0 auto;
+    }
+
+    .tagline,
+    h1,
+    h2,
+    h3 {
+      font-family: "Bebas Neue", sans-serif;
+      letter-spacing: 0.02em;
+      line-height: 0.98;
+      font-weight: 400;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 12;
+      backdrop-filter: blur(10px);
+      background: rgba(6, 9, 17, 0.82);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #31e7b0 0%, #1d86ff 100%);
+      box-shadow: 0 8px 24px rgba(49, 231, 176, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo::before {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border: 2px solid rgba(255, 255, 255, 0.88);
+      border-radius: 7px;
+    }
+
+    .pills {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 12px;
+      color: var(--muted);
+      font-size: 0.77rem;
+      background: rgba(255, 255, 255, 0.04);
+      white-space: nowrap;
+    }
+
+    .pill.hot {
+      background: rgba(255, 77, 103, 0.14);
+      color: #ffd6de;
+      border-color: rgba(255, 77, 103, 0.45);
+    }
+
+    .hero {
+      padding: 64px 0 38px;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .tagline {
+      font-size: clamp(3.2rem, 10vw, 8.5rem);
+    }
+
+    .line-break {
+      display: block;
+    }
+
+    .gradient {
+      background: linear-gradient(90deg, #35e9b3 0%, #4ec8ff 45%, #ffca67 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .sub {
+      color: var(--muted);
+      margin-top: 16px;
+      max-width: 66ch;
+      font-size: 0.98rem;
+    }
+
+    .cta-row {
+      margin-top: 26px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 14px;
+      padding: 14px 18px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.93rem;
+      cursor: pointer;
+      transition: transform 0.16s ease, filter 0.16s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.06);
+    }
+
+    .btn.primary {
+      color: #03130f;
+      background: linear-gradient(135deg, #37edb8 0%, #5ad0ff 100%);
+      box-shadow: 0 18px 40px rgba(37, 226, 168, 0.32);
+    }
+
+    .btn.ghost {
+      color: #dce6ff;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--line);
+    }
+
+    .hero-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(30, 44, 79, 0.72) 0%, rgba(10, 16, 30, 0.8) 100%);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -120px -120px auto;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 77, 103, 0.24), rgba(255, 77, 103, 0));
+      pointer-events: none;
+    }
+
+    .money-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 11px 12px;
+      background: rgba(255, 255, 255, 0.03);
+      margin-bottom: 10px;
+      font-size: 0.86rem;
+    }
+
+    .money-row b {
+      color: #fff;
+    }
+
+    .money-win {
+      color: var(--neon);
+      font-weight: 700;
+    }
+
+    .money-lose {
+      color: #ff96a6;
+      font-weight: 700;
+    }
+
+    .section {
+      padding: 28px 0;
+    }
+
+    .section h2 {
+      font-size: clamp(2rem, 6vw, 3.4rem);
+      margin-bottom: 8px;
+    }
+
+    .section .lead {
+      color: var(--muted);
+      max-width: 65ch;
+      margin-bottom: 18px;
+      font-size: 0.95rem;
+    }
+
+    .steps {
+      display: grid;
+      gap: 14px;
+    }
+
+    .step {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      padding: 18px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .num {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #04140f;
+      background: linear-gradient(135deg, #37edb8 0%, #8de6ff 100%);
+      font-weight: 800;
+      font-size: 0.95rem;
+      box-shadow: 0 8px 20px rgba(65, 223, 189, 0.26);
+    }
+
+    .step h3 {
+      font-size: 1.7rem;
+      margin-bottom: 4px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .modes {
+      display: grid;
+      gap: 14px;
+    }
+
+    .mode {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      padding: 18px;
+    }
+
+    .mode strong {
+      font-size: 1.16rem;
+    }
+
+    .mode p {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .mode.solo strong {
+      color: var(--charity);
+    }
+
+    .mode.v1 strong {
+      color: var(--danger);
+    }
+
+    .feature-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .feature {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--card);
+      padding: 16px;
+    }
+
+    .feature h3 {
+      font-size: 1.45rem;
+      margin-bottom: 4px;
+    }
+
+    .feature p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .feature .micro {
+      margin-top: 10px;
+      color: #d4dcf0;
+      font-size: 0.8rem;
+      border-top: 1px dashed rgba(255, 255, 255, 0.16);
+      padding-top: 10px;
+    }
+
+    .charities {
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: rgba(15, 25, 28, 0.56);
+      padding: 14px;
+    }
+
+    .charity-title {
+      font-size: 0.86rem;
+      color: #ddffe8;
+      margin-bottom: 9px;
+    }
+
+    .charity-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .charity-item {
+      border: 1px solid rgba(124, 232, 192, 0.3);
+      color: #dcfff0;
+      background: rgba(124, 232, 192, 0.12);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+
+    .final-cta {
+      margin: 28px 0 54px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius-xl);
+      background:
+        radial-gradient(42rem 24rem at 84% -6%, rgba(255, 77, 103, 0.18), transparent 62%),
+        linear-gradient(180deg, rgba(15, 23, 43, 0.9) 0%, rgba(9, 14, 26, 0.95) 100%);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .final-cta h2 {
+      font-size: clamp(2.2rem, 7vw, 4rem);
+      margin-bottom: 6px;
+    }
+
+    .urgency {
+      color: #ffd2da;
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 14px;
+    }
+
+    form {
+      display: grid;
+      gap: 10px;
+    }
+
+    .input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 13px;
+      background: rgba(255, 255, 255, 0.03);
+      color: #f9fbff;
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+
+    .input::placeholder {
+      color: #8793b0;
+    }
+
+    .cta-footnote {
+      color: var(--muted);
+      font-size: 0.77rem;
+    }
+
+    .inline {
+      display: grid;
+      gap: 10px;
+    }
+
+    .status {
+      min-height: 20px;
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .status.ok {
+      color: #83f3cd;
+    }
+
+    .status.err {
+      color: #ff98a8;
+    }
+
+    .foot {
+      border-top: 1px solid var(--line);
+      color: #8f9abc;
+      padding: 18px 0 34px;
+      font-size: 0.78rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .reveal.on {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 760px) {
+      .hero-grid {
+        grid-template-columns: 1.25fr 0.95fr;
+      }
+
+      .steps {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .step {
+        grid-template-columns: 1fr;
+      }
+
+      .modes {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .inline {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a href="#" class="brand" aria-label="Showup home">
+        <span class="logo" aria-hidden="true"></span>
+        <span>Showup</span>
+      </a>
+      <div class="pills">
+        <span class="pill">Global launch: July 2026</span>
+        <span class="pill">USD only</span>
+        <span class="pill hot">Ages 16-32</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero reveal">
+      <div class="hero-grid">
+        <div>
+          <h1 class="tagline">
+            <span class="line-break">The app that makes</span>
+            <span class="line-break gradient">quitting expensive.</span>
+          </h1>
+          <p class="sub">
+            Showup is habit accountability with real consequences. Pick a habit, stake money, and check in daily.
+            Complete your challenge and get your money back. Miss it and lose it.
+          </p>
+          <div class="cta-row">
+            <a href="#waitlist" class="btn primary">Join the Waitlist</a>
+            <a href="#how" class="btn ghost">See How It Works</a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Showup stake preview">
+          <div class="money-row">
+            <span>Stake Range</span>
+            <b>$5 - $1,000</b>
+          </div>
+          <div class="money-row">
+            <span>Check-in Methods</span>
+            <b>AI Selfie, Session Lock, Activity, Tap</b>
+          </div>
+          <div class="money-row">
+            <span>If You Complete</span>
+            <span class="money-win">Full stake returned</span>
+          </div>
+          <div class="money-row">
+            <span>If You Miss</span>
+            <span class="money-lose">Money gone</span>
+          </div>
+          <div class="money-row">
+            <span>Modes</span>
+            <b>Solo or 1v1</b>
+          </div>
+          <div class="money-row">
+            <span>Social Pressure</span>
+            <b>The Wall + Leaderboard</b>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="how" class="section reveal">
+      <h2>How It Works</h2>
+      <p class="lead">Three steps. No loopholes. No fake points.</p>
+      <div class="steps">
+        <article class="step">
+          <span class="num">1</span>
+          <div>
+            <h3>Set Habit + Stake</h3>
+            <p>Choose your habit and lock in from $5 to $1,000 in USD.</p>
+          </div>
+        </article>
+        <article class="step">
+          <span class="num">2</span>
+          <div>
+            <h3>Check In Daily</h3>
+            <p>Verify with AI Selfie, Session Lock, Phone Activity Tracking, or one-tap check-in.</p>
+          </div>
+        </article>
+        <article class="step">
+          <span class="num">3</span>
+          <div>
+            <h3>Win or Lose</h3>
+            <p>Complete your challenge and get your money back. Miss your target and your stake is gone.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <h2>Choose Your Mode</h2>
+      <p class="lead">Play it personal or go head-to-head.</p>
+      <div class="modes">
+        <article class="mode solo">
+          <strong>Solo: You vs Yourself</strong>
+          <p>Miss your habit and your forfeited stake goes to charity. Accountability with impact.</p>
+        </article>
+        <article class="mode v1">
+          <strong>1v1: Challenge a Friend</strong>
+          <p>Both of you stake real money. Miss your habit and your opponent takes your money. Real competition, real stakes.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <h2>Built to Keep You Honest</h2>
+      <p class="lead">Everything is designed to remove excuses and reward consistency.</p>
+      <div class="feature-grid">
+        <article class="feature">
+          <h3>Real Money Stakes</h3>
+          <p>No points. No pretend streaks. You feel every decision financially.</p>
+          <p class="micro">Commitment amount: $5-$1,000 per challenge.</p>
+        </article>
+        <article class="feature">
+          <h3>The Wall</h3>
+          <p>A live feed of wins and losses. People see who showed up and who folded.</p>
+          <p class="micro">Public accountability creates daily pressure.</p>
+        </article>
+        <article class="feature">
+          <h3>Leaderboard</h3>
+          <p>Track the most consistent users globally and compare your streak discipline.</p>
+          <p class="micro">Consistency beats motivation.</p>
+        </article>
+        <article class="feature">
+          <h3>Smart Verification</h3>
+          <p>AI-powered check-ins stop cheating and keep outcomes fair in Solo and 1v1 mode.</p>
+          <p class="micro">AI Selfie, Session Lock, Activity Tracking, and Tap checks.</p>
+        </article>
+      </div>
+
+      <div class="charities">
+        <p class="charity-title">Every forfeited stake partially supports charity partners:</p>
+        <div class="charity-list">
+          <span class="charity-item">Nanhi Kali</span>
+          <span class="charity-item">CRY India</span>
+          <span class="charity-item">Teach For India</span>
+          <span class="charity-item">Give India</span>
+          <span class="charity-item">HelpAge India</span>
+          <span class="charity-item">WWF India</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="waitlist" class="final-cta reveal">
+      <h2>Launch Is Close. Lock Your Spot.</h2>
+      <p class="urgency">Waitlist opens now. First access rolls out July 2026.</p>
+
+      <form id="waitlist-form" novalidate>
+        <div class="inline">
+          <input class="input" id="name" name="name" type="text" placeholder="Your name" required />
+          <input class="input" id="email" name="email" type="email" placeholder="Email address" required />
+        </div>
+        <div class="inline">
+          <input class="input" id="habit" name="habit" type="text" placeholder="Habit you want to lock in" />
+          <select class="input" id="stake" name="stake" required>
+            <option value="">Planned stake (USD)</option>
+            <option>$5 - $25</option>
+            <option>$26 - $100</option>
+            <option>$101 - $500</option>
+            <option>$501 - $1,000</option>
+          </select>
+        </div>
+        <button class="btn primary" type="submit">Join the Waitlist</button>
+        <p class="status" id="status-msg" aria-live="polite"></p>
+        <p class="cta-footnote">By joining, you agree to receive launch updates for Showup (global release in USD).</p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    <span>Showup (c) 2026</span>
+    <span>Stake money. Build habits. No excuses.</span>
+  </footer>
+
+  <script>
+    const form = document.getElementById("waitlist-form");
+    const statusMsg = document.getElementById("status-msg");
+    const reveals = document.querySelectorAll(".reveal");
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("on");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    reveals.forEach((el) => io.observe(el));
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const stake = document.getElementById("stake").value.trim();
+      const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+      statusMsg.className = "status";
+      if (!name || !emailValid || !stake) {
+        statusMsg.textContent = "Enter your name, valid email, and stake range to join.";
+        statusMsg.classList.add("err");
+        return;
+      }
+
+      statusMsg.textContent = "You're on the waitlist. We'll send launch access updates soon.";
+      statusMsg.classList.add("ok");
+      form.reset();
+    });
+  </script>
+</body>
+</html>
